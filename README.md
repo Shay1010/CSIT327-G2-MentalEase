@@ -30,7 +30,6 @@ cd MentalEase-Project
 
 command code . to direct your software 
 
-
 3. Create a virtual environment
 
 python -m venv env
