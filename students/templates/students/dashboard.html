@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Dashboard</title>
+    <link rel="stylesheet" href="{% static 'students/css/dashboard.css' %}">
+</head>
+<body>
+    <h1>Welcome, {{ student.username }}!</h1>
+
+    <section>
+        <h2>Campus Hotlines</h2>
+        <ul>
+            <li>📞 CIT-U Wellness Center: 123-4567</li>
+            <li>📞 Cebu Lifeline: 988</li>
+            <li>📞 National Mental Health Crisis Line: 1553</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Wellness Guides & Articles</h2>
+        <ul>
+            <li><a href="https://www.who.int/health-topics/mental-health" target="_blank">WHO: Mental Health Resources</a></li>
+            <li><a href="https://www.psychologytoday.com/" target="_blank">Psychology Today</a></li>
+            <li><a href="https://www.mind.org.uk/" target="_blank">Mind UK: Mental Health Support</a></li>
+        </ul>
+    </section>
+
+    <a href="{% url 'logout' %}">Logout</a>
+</body>
+</html>
