@@ -32,7 +32,7 @@ Setup & run instructions
 
 2. Clone your forked repository
 
-git clone https://github.com/Arvs013/MentalEase.git
+git clone https://github.com/Arvs013/CSIT327-G2-MentalEase.git
 cd MentalEase-Project
 
 command code . to direct your software 
