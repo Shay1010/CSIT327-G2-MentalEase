@@ -25,6 +25,75 @@ Edit Profile Information
 Upload Profile Picture
 Reset Password via Email
 
+Setup & run instructions
+
+1. Fork the repository
+	 Go to the MentalEase GitHub repository and click “Fork” to create your own copy.
+
+2. Clone your forked repository
+
+git clone https://github.com/Arvs013/MentalEase.git
+cd MentalEase-Project
+
+command code . to direct your software 
+
+
+3. Create a virtual environment
+
+python -m venv env
+env\Scripts\activate        # for Windows
+# or
+source env/bin/activate     # for macOS / Linux
+
+
+4. Install the dependencies
+
+pip install -r requirements.txt
+
+
+(If requirements.txt is missing, run this instead:)
+
+pip install django supabase python-dotenv djangorestframework
+
+
+5. Set up environment variables
+
+Create a file named .env in the root folder (same level as manage.py).
+
+Add your Supabase credentials:
+
+SUPABASE_URL=https://<your-project>.supabase.co
+SUPABASE_KEY=<your-anon-key>
+
+
+Do not share or upload this file.
+
+6. Apply database migrations
+
+python manage.py makemigrations
+python manage.py migrate
+
+
+7. Run the development server
+
+python manage.py runserver
+
+
+8. Access the app
+
+Open http://127.0.0.1:8000/
+
+Signup page: http://127.0.0.1:8000/students/signup/
+
+Login page: http://127.0.0.1:8000/students/login/
+
+
+9. Commit and push your updates
+
+git add .
+git commit -m "Your update message"
+git push origin main
+
 📊 Mood Tracking
 Log daily moods using an emoji-based scale
 View mood trends through interactive charts
