@@ -13,3 +13,13 @@ class StudentSignUpForm(forms.Form):
 class StudentLoginForm(forms.Form):
     email = forms.EmailField(label="Email")
     password = forms.CharField(widget=forms.PasswordInput)
+
+#Profile form
+class StudentProfileForm(forms.ModelForm):
+    class Meta:
+        model = Student
+        fields = ['full_name', 'year_program', 'profile_picture']
+        widgets = {
+            'full_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'year_program': forms.TextInput(attrs={'class': 'form-control'}),
+        }

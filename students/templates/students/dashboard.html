@@ -5,28 +5,283 @@
     <meta charset="UTF-8">
     <title>Student Dashboard</title>
     <link rel="stylesheet" href="{% static 'students/css/dashboard.css' %}">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #d2f2e9, #f0f8f5);
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #2a9d8f;
+            padding: 15px 40px;
+            color: white;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        .navbar h1 {
+            font-size: 22px;
+            margin: 0;
+            font-weight: 600;
+        }
+
+        .navbar .profile-icon img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid #fff;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .navbar .profile-icon img:hover {
+            transform: scale(1.08);
+        }
+
+        /* Main container */
+        .container {
+            max-width: 900px;
+            margin: 60px auto;
+            padding: 20px;
+        }
+
+        /* Card style */
+        .card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            padding: 25px;
+            margin-bottom: 25px;
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+        }
+
+        h2 {
+            color: #264653;
+            margin-bottom: 15px;
+        }
+
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        ul li {
+            background-color: #e9f7f4;
+            padding: 10px 15px;
+            margin-bottom: 8px;
+            border-radius: 8px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #2a9d8f;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Logout button */
+        .logout {
+            display: inline-block;
+            background-color: #e63946;
+            color: white;
+            padding: 10px 18px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.2s;
+        }
+
+        .logout:hover {
+            background-color: #c91827;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #555;
+            font-size: 14px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Welcome, {{ student.username }}!</h1>
+    {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Dashboard</title>
+    <link rel="stylesheet" href="{% static 'students/css/dashboard.css' %}">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #d2f2e9, #f0f8f5);
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
 
-    <section>
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #2a9d8f;
+            padding: 15px 40px;
+            color: white;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        .navbar h1 {
+            font-size: 22px;
+            margin: 0;
+            font-weight: 600;
+        }
+
+        .navbar .profile-icon img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid #fff;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .navbar .profile-icon img:hover {
+            transform: scale(1.08);
+        }
+
+        /* Main container */
+        .container {
+            max-width: 900px;
+            margin: 60px auto;
+            padding: 20px;
+        }
+
+        /* Card style */
+        .card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            padding: 25px;
+            margin-bottom: 25px;
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+        }
+
+        h2 {
+            color: #264653;
+            margin-bottom: 15px;
+        }
+
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        ul li {
+            background-color: #e9f7f4;
+            padding: 10px 15px;
+            margin-bottom: 8px;
+            border-radius: 8px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #2a9d8f;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Logout button */
+        .logout {
+            display: inline-block;
+            background-color: #e63946;
+            color: white;
+            padding: 10px 18px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.2s;
+        }
+
+        .logout:hover {
+            background-color: #c91827;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #555;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+<div class="navbar">
+    <h1>🌼 MentalEase Dashboard</h1>
+    <div style="display: flex; align-items: center; gap: 15px;">
+        <!-- About Us Button -->
+        <a href="{% url 'aboutus' %}" class="btn" 
+           style="background-color: #2a9d8f; color: white; padding: 8px 15px; border-radius: 8px; font-weight: 600; text-decoration: none;">
+           About Us
+        </a>
+
+        <!-- Profile Icon -->
+        <div class="profile-icon">
+            <a href="{% url 'profile' %}">
+                <img src="{% static 'students/images/default-avatar.png' %}" alt="Profile">
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Main content -->
+<div class="container">
+    <!-- Welcome Card -->
+    <div class="card">
+        <h2>Welcome, {{ student.username }} 💚</h2>
+        <p>We’re glad to see you again. Take a deep breath and check today’s resources for your well-being.</p>
+    </div>
+
+    <!-- Campus Hotlines Card -->
+    <div class="card">
         <h2>Campus Hotlines</h2>
         <ul>
             <li>📞 CIT-U Wellness Center: 123-4567</li>
             <li>📞 Cebu Lifeline: 988</li>
             <li>📞 National Mental Health Crisis Line: 1553</li>
         </ul>
-    </section>
+    </div>
 
-    <section>
+    <!-- Wellness Guides Card -->
+    <div class="card">
         <h2>Wellness Guides & Articles</h2>
         <ul>
             <li><a href="https://www.who.int/health-topics/mental-health" target="_blank">WHO: Mental Health Resources</a></li>
             <li><a href="https://www.psychologytoday.com/" target="_blank">Psychology Today</a></li>
             <li><a href="https://www.mind.org.uk/" target="_blank">Mind UK: Mental Health Support</a></li>
         </ul>
-    </section>
+    </div>
 
-    <a href="{% url 'logout' %}">Logout</a>
-</body>
-</html>
+    <a class="logout" href="{% url 'logout' %}">🚪 Logout</a>
+</div>

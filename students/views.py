@@ -79,3 +79,39 @@ def student_dashboard(request):
     if not student:
         return redirect('login')
     return render(request, 'students/dashboard.html', {'student': student})
+
+#Student Profile View
+def profile_view(request):
+    student_session = request.session.get('student', None)
+    if not student_session:
+        return redirect('login')
+
+    # Fetch the student's data from Supabase
+    response = supabase.table("students").select("*").eq("id", student_session['id']).execute()
+    if not response.data:
+        messages.error(request, "❌ Could not load your profile.")
+        return redirect('dashboard')
+
+    student = response.data[0]
+
+    if request.method == 'POST':
+        full_name = request.POST.get('full_name')
+        year_program = request.POST.get('year_program')
+
+        # Update student info in Supabase
+        update_response = supabase.table("students").update({
+            "full_name": full_name,
+            "year_program": year_program
+        }).eq("id", student['id']).execute()
+
+        if update_response.data:
+            messages.success(request, "✅ Profile updated successfully!")
+            return redirect('profile')
+        else:
+            messages.error(request, "❌ Failed to update profile.")
+    
+    return render(request, 'students/profile.html', {'student': student})
+
+#AboutUs
+def about_us(request):
+    return render(request, 'students/aboutus.html')

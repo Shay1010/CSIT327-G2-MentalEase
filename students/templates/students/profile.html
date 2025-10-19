@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+
+    <!-- Back arrow -->
+    <div style="margin-bottom: 20px;">
+        <a href="{% url 'dashboard' %}" style="text-decoration: none; color: #2a9d8f; font-weight: 600; display: inline-flex; align-items: center;">
+            <!-- Unicode left arrow -->
+            &#8592; Back to Dashboard
+        </a>
+    </div>
+
+    <div class="card">
+        <h2>My Profile</h2>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <!-- Profile Picture -->
+            <div class="mb-3" style="margin-bottom: 25px; text-align: center;">
+                <label style="font-weight: 600; display: block; margin-bottom: 10px;">Profile Picture</label>
+                
+                <!-- Profile container -->
+                <div style="position: relative; display: inline-block;">
+                    <img src="{% static 'students/images/default-avatar.png' %}" 
+                        alt="Profile" 
+                        style="width: 150px; height: 150px; border-radius: 50%; border: 3px solid #2a9d8f; display: block; margin: 0 auto;">
+                    
+                    <!-- Online badge -->
+                    <span style="
+                        position: absolute;
+                        bottom: 10px;
+                        right: 10px;
+                        width: 20px;
+                        height: 20px;
+                        background-color: #2a9d8f;
+                        border: 2px solid white;
+                        border-radius: 50%;
+                        display: inline-block;">
+                    </span>
+                </div>
+                
+                <input type="file" name="profile_picture" class="form-control" 
+                    style="margin-top: 15px; display: inline-block; width: auto;">
+            </div>
+
+            <!-- Full Name -->
+            <div class="mb-3" style="margin-bottom: 20px;">
+                <label style="font-weight: 600;">Full Name</label>
+                <input type="text" name="full_name" class="form-control" 
+                       value="{{ student.full_name }}" 
+                       style="padding: 10px; border-radius: 8px; border: 1px solid #ccc; width: 100%;">
+            </div>
+
+            <!-- Year & Program -->
+            <div class="mb-3" style="margin-bottom: 20px;">
+                <label style="font-weight: 600;">Year & Program</label>
+                <input type="text" name="year_program" class="form-control" 
+                       value="{{ student.year_program }}" 
+                       style="padding: 10px; border-radius: 8px; border: 1px solid #ccc; width: 100%;">
+            </div>
+
+            <button type="submit" class="btn" 
+                    style="background-color: #2a9d8f; color: white; padding: 10px 20px; border-radius: 8px; font-weight: 600;">
+                Save Changes
+            </button>
+        </form>
+    </div>
+
+    <a class="logout" href="{% url 'logout' %}">🚪 Logout</a>
+</div>
+{% endblock %}

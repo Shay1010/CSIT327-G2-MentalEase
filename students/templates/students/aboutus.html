@@ -1,0 +1,152 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>About Us - MentalEase</title>
+    <link rel="stylesheet" href="{% static 'students/css/dashboard.css' %}">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #d2f2e9, #f0f8f5);
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #2a9d8f;
+            padding: 15px 40px;
+            color: white;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        .navbar h1 {
+            font-size: 22px;
+            margin: 0;
+            font-weight: 600;
+        }
+
+        .navbar .profile-icon img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid #fff;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .navbar .profile-icon img:hover {
+            transform: scale(1.08);
+        }
+
+        /* Main container */
+        .container {
+            max-width: 900px;
+            margin: 60px auto;
+            padding: 20px;
+        }
+
+        /* Card style */
+        .card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            padding: 25px;
+            margin-bottom: 25px;
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+        }
+
+        h2 {
+            color: #264653;
+            margin-bottom: 15px;
+        }
+
+        p {
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: #2a9d8f;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Back button */
+        .back-btn {
+            display: inline-block;
+            background-color: #2a9d8f;
+            color: white;
+            padding: 10px 18px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.2s;
+            margin-top: 15px;
+        }
+
+        .back-btn:hover {
+            background-color: #1e7a6b;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #555;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <div class="navbar">
+        <h1>🌼 MentalEase</h1>
+        <div class="profile-icon">
+            <a href="{% url 'profile' %}">
+                <img src="{% static 'students/images/default-avatar.png' %}" alt="Profile">
+            </a>
+        </div>
+    </div>
+
+    <!-- Main content -->
+    <div class="container">
+        <div class="card">
+            <h2>About MentalEase 💚</h2>
+            <p>MentalEase is designed to support students' mental well-being. Our mission is to provide resources, hotlines, and guides to help students navigate stress, anxiety, and other mental health challenges while on campus.</p>
+        </div>
+
+        <div class="card">
+            <h2>Our Team</h2>
+            <p>We are a group of students and developers passionate about mental health advocacy. Together, we aim to create a safe and supportive environment for everyone in the campus community.</p>
+        </div>
+
+        <div class="card">
+            <h2>Contact Us</h2>
+            <p>If you have questions, suggestions, or feedback, feel free to reach out:</p>
+            <ul>
+                <li>Email: support@mentalease.com</li>
+                <li>Phone: 123-4567</li>
+                <li>Campus Office: Room 101, CIT-U Wellness Center</li>
+            </ul>
+        </div>
+
+        <a href="{% url 'dashboard' %}" class="back-btn">🏠 Back to Dashboard</a>
+    </div>
+
+    <footer>
+        © 2025 MentalEase | Caring for your well-being 🌿
+    </footer>
+</body>
+</html>
