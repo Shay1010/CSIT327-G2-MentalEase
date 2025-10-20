@@ -1,32 +1,67 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Student Dashboard</title>
-    <link rel="stylesheet" href="{% static 'students/css/dashboard.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MentalEase - Student Dashboard</title>
+    <link rel="stylesheet" href="dashboard.css"> 
 </head>
 <body>
-    <h1>Welcome, {{ student.username }}!</h1>
+    <div class="page-container">
+        <div class="gradient-background"></div>
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        
+        <div class="dashboard-content">
+            <header class="header">
+                <svg class="header-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M9.01 15.11a5 5 0 0 1 5.98 0"/>
+                    <path d="M12 10V6"/>
+                    <path d="M12 18h.01"/>
+                </svg>
+                <h1>Welcome, <span class="student-name">Student User!</span></h1>
+                <p class="subtitle">Your personalized wellness space.</p>
+            </header>
 
-    <section>
-        <h2>Campus Hotlines</h2>
-        <ul>
-            <li>📞 CIT-U Wellness Center: 123-4567</li>
-            <li>📞 Cebu Lifeline: 988</li>
-            <li>📞 National Mental Health Crisis Line: 1553</li>
-        </ul>
-    </section>
+            <div class="grid-container">
+                <section class="card hotline-card">
+                    <div class="card-header">
+                        <svg class="section-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-3.67-2.94 19.5 19.5 0 0 1-2.94-3.67A19.79 19.79 0 0 1 2 4.18 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                        </svg>
+                        <h2>Campus Hotlines</h2>
+                    </div>
+                    <ul class="resource-list">
+                        <li>📞 CIT-U Wellness Center: <span class="hotline-number">123-4567</span></li>
+                        <li>📞 Cebu Lifeline: <span class="hotline-number">988</span></li>
+                        <li>📞 National Mental Health Crisis Line: <span class="hotline-number">1553</span></li>
+                    </ul>
+                </section>
 
-    <section>
-        <h2>Wellness Guides & Articles</h2>
-        <ul>
-            <li><a href="https://www.who.int/health-topics/mental-health" target="_blank">WHO: Mental Health Resources</a></li>
-            <li><a href="https://www.psychologytoday.com/" target="_blank">Psychology Today</a></li>
-            <li><a href="https://www.mind.org.uk/" target="_blank">Mind UK: Mental Health Support</a></li>
-        </ul>
-    </section>
-
-    <a href="{% url 'logout' %}">Logout</a>
+                <section class="card article-card">
+                    <div class="card-header">
+                        <svg class="section-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+                        </svg>
+                        <h2>Wellness Guides & Articles</h2>
+                    </div>
+                    <ul class="resource-list">
+                        <li><a href="https://www.who.int/health-topics/mental-health" target="_blank" class="resource-link">WHO: Mental Health Resources</a></li>
+                        <li><a href="https://www.psychologytoday.com/" target="_blank" class="resource-link">Psychology Today</a></li>
+                        <li><a href="https://www.mind.org.uk/" target="_blank" class="resource-link">Mind UK: Mental Health Support</a></li>
+                    </ul>
+                </section>
+            </div>
+            
+            <a href="{% url 'logout' %}" class="logout-button">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/>
+                </svg>
+                Logout
+            </a>
+        </div>
+    </div>
 </body>
 </html>
