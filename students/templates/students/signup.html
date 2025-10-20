@@ -1,36 +1,859 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MentalEase - Student Sign Up</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-{% block title %}Student Sign Up{% endblock %}
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.5;
+            color: #1a1a1a;
+        }
 
-{% block content %}
-<h2>Student Sign Up</h2>
+        /* Page Container */
+        .page-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
 
-<!-- Show messages -->
-{% if messages %}
-  <ul>
-    {% for message in messages %}
-      <li>{{ message }}</li>
-    {% endfor %}
-  </ul>
-{% endif %}
+        /* Gradient Background */
+        .gradient-background {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, #eff6ff 0%, #f5f3ff 50%, #f0fdfa 100%);
+            z-index: 0;
+        }
 
-<form method="POST">
-  {% csrf_token %}
-  
-  <label for="username">Username:</label><br>
-  <input type="text" id="username" name="username" placeholder="Enter username" required><br><br>
+        /* Animated Gradient Orbs */
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: 1;
+        }
 
-  <label for="full_name">Full Name:</label><br>
-  <input type="text" id="full_name" name="full_name" placeholder="Enter full name" required><br><br>
+        .orb-1 {
+            top: 0;
+            left: 0;
+            width: 24rem;
+            height: 24rem;
+            background: linear-gradient(135deg, rgba(191, 219, 254, 0.4), rgba(221, 214, 254, 0.4));
+            animation: pulse1 8s ease-in-out infinite;
+        }
 
-  <label for="email">Email:</label><br>
-  <input type="email" id="email" name="email" placeholder="Enter email" required><br><br>
+        .orb-2 {
+            bottom: 0;
+            right: 0;
+            width: 24rem;
+            height: 24rem;
+            background: linear-gradient(135deg, rgba(153, 246, 228, 0.4), rgba(191, 219, 254, 0.4));
+            animation: pulse2 10s ease-in-out infinite 1s;
+        }
 
-  <label for="password">Password:</label><br>
-  <input type="password" id="password" name="password" placeholder="Enter password" required><br><br>
+        .orb-3 {
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 24rem;
+            height: 24rem;
+            background: linear-gradient(135deg, rgba(221, 214, 254, 0.3), rgba(251, 207, 232, 0.3));
+            animation: pulse3 12s ease-in-out infinite 2s;
+        }
 
-  <button type="submit">Sign Up</button>
-</form>
+        @keyframes pulse1 {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.4;
+            }
+            50% {
+                transform: scale(1.2);
+                opacity: 0.6;
+            }
+        }
 
-<p>Already have an account? <a href="{% url 'login' %}">Login here</a>.</p>
-{% endblock %}
+        @keyframes pulse2 {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.4;
+            }
+            50% {
+                transform: scale(1.3);
+                opacity: 0.5;
+            }
+        }
+
+        @keyframes pulse3 {
+            0%, 100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.3;
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.1);
+                opacity: 0.5;
+            }
+        }
+
+        /* Floating Decorative Circles */
+        .floating-circle {
+            position: absolute;
+            border: 2px solid;
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .circle-1 {
+            top: 2.5rem;
+            left: 2.5rem;
+            width: 6rem;
+            height: 6rem;
+            border-color: rgba(147, 197, 253, 0.3);
+            animation: float1 15s ease-in-out infinite;
+        }
+
+        .circle-2 {
+            bottom: 5rem;
+            left: 5rem;
+            width: 4rem;
+            height: 4rem;
+            border-color: rgba(196, 181, 253, 0.3);
+            animation: float2 12s ease-in-out infinite;
+        }
+
+        .circle-3 {
+            top: 25%;
+            right: 5rem;
+            width: 5rem;
+            height: 5rem;
+            border-color: rgba(153, 246, 228, 0.3);
+            animation: float3 10s ease-in-out infinite;
+        }
+
+        @keyframes float1 {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+            }
+        }
+
+        @keyframes float2 {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(15px) rotate(-180deg);
+            }
+        }
+
+        @keyframes float3 {
+            0%, 100% {
+                transform: translate(0, 0);
+            }
+            50% {
+                transform: translate(10px, -10px);
+            }
+        }
+
+        /* Form Container */
+        .form-container {
+            width: 100%;
+            max-width: 28rem;
+            position: relative;
+            z-index: 10;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Form Card */
+        .form-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(20px);
+            border-radius: 1rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Shimmer Effect */
+        .shimmer-effect {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transform: translateX(-100%);
+            pointer-events: none;
+        }
+
+        .form-card:hover .shimmer-effect {
+            animation: shimmer 0.8s ease-out;
+        }
+
+        @keyframes shimmer {
+            to {
+                transform: translateX(100%);
+            }
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+            animation: fadeIn 0.6s ease-out 0.2s backwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .icon-wrapper {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 4rem;
+            height: 4rem;
+            background: linear-gradient(135deg, #c084fc, #60a5fa);
+            border-radius: 1rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .icon-wrapper:hover {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .heart-icon {
+            color: white;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #1a1a1a;
+        }
+
+        .subtitle {
+            color: #717182;
+            font-size: 0.875rem;
+        }
+
+        /* Alert Success */
+        .alert-success {
+            background-color: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            animation: scaleIn 0.3s ease-out;
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .alert-success .check-icon {
+            color: #16a34a;
+            flex-shrink: 0;
+        }
+
+        .alert-success span {
+            color: #166534;
+            font-size: 0.875rem;
+        }
+
+        /* Form */
+        .signup-form {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .form-field {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            animation: slideInLeft 0.6s ease-out backwards;
+        }
+
+        .form-field:nth-child(1) { animation-delay: 0.3s; }
+        .form-field:nth-child(2) { animation-delay: 0.4s; }
+        .form-field:nth-child(3) { animation-delay: 0.5s; }
+        .form-field:nth-child(4) { animation-delay: 0.6s; }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .field-label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+            font-size: 0.875rem;
+            color: #1a1a1a;
+        }
+
+        .label-icon {
+            width: 1rem;
+            height: 1rem;
+        }
+
+        .label-icon:nth-of-type(1) {
+            color: #a855f7;
+        }
+
+        .form-field:nth-child(2) .label-icon {
+            color: #3b82f6;
+        }
+
+        .form-field:nth-child(3) .label-icon {
+            color: #14b8a6;
+        }
+
+        .form-field:nth-child(4) .label-icon {
+            color: #ec4899;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.625rem 0.75rem;
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .form-input::placeholder {
+            color: #9ca3af;
+        }
+
+        .form-input:hover {
+            border-color: #d1d5db;
+        }
+
+        .form-input:focus {
+            transform: scale(1.02);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Field-specific focus colors */
+        #username:focus {
+            border-color: #c084fc;
+            box-shadow: 0 10px 15px -3px rgba(192, 132, 252, 0.2);
+        }
+
+        #fullName:focus {
+            border-color: #60a5fa;
+            box-shadow: 0 10px 15px -3px rgba(96, 165, 250, 0.2);
+        }
+
+        #email:focus {
+            border-color: #5eead4;
+            box-shadow: 0 10px 15px -3px rgba(94, 234, 212, 0.2);
+        }
+
+        #password:focus {
+            border-color: #f472b6;
+            box-shadow: 0 10px 15px -3px rgba(244, 114, 182, 0.2);
+        }
+
+        /* Check Mark */
+        .check-mark {
+            position: absolute;
+            right: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%) scale(0);
+            color: #22c55e;
+            transition: transform 0.3s ease;
+            pointer-events: none;
+        }
+
+        .check-mark.show {
+            transform: translateY(-50%) scale(1);
+        }
+
+        /* Password Strength */
+        .password-strength {
+            margin-top: 0.5rem;
+            animation: expandHeight 0.3s ease-out;
+        }
+
+        @keyframes expandHeight {
+            from {
+                opacity: 0;
+                max-height: 0;
+            }
+            to {
+                opacity: 1;
+                max-height: 50px;
+            }
+        }
+
+        .strength-bar-container {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .strength-bar {
+            flex: 1;
+            height: 0.5rem;
+            background-color: #e5e7eb;
+            border-radius: 999px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .strength-bar::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: var(--strength-width, 0%);
+            background-color: var(--strength-color, #ef4444);
+            transition: all 0.3s ease;
+        }
+
+        .strength-text {
+            font-size: 0.875rem;
+            color: #717182;
+            min-width: 60px;
+            text-align: right;
+        }
+
+        /* Submit Button */
+        .submit-button {
+            width: 100%;
+            margin-top: 1.5rem;
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(90deg, #a855f7, #3b82f6, #14b8a6);
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.6s ease-out 0.7s backwards;
+        }
+
+        .submit-button:hover {
+            background: linear-gradient(90deg, #9333ea, #2563eb, #0d9488);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15);
+            transform: scale(1.02);
+        }
+
+        .submit-button:active {
+            transform: scale(0.98);
+        }
+
+        /* Login Link */
+        .login-link {
+            margin-top: 1.5rem;
+            text-align: center;
+            color: #717182;
+            font-size: 0.875rem;
+            animation: fadeIn 0.6s ease-out 0.8s backwards;
+        }
+
+        .link {
+            color: #9333ea;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .link:hover {
+            color: #7e22ce;
+            text-decoration: underline;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 640px) {
+            .form-card {
+                padding: 1.5rem;
+            }
+            
+            h2 {
+                font-size: 1.25rem;
+            }
+            
+            .orb {
+                width: 16rem;
+                height: 16rem;
+            }
+            
+            .floating-circle {
+                display: none;
+            }
+        }
+
+        @media (min-width: 641px) and (max-width: 1024px) {
+            .orb {
+                width: 20rem;
+                height: 20rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <!-- Gradient Background -->
+        <div class="gradient-background"></div>
+        
+        <!-- Animated Gradient Orbs -->
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        
+        <!-- Floating Decorative Elements -->
+        <div class="floating-circle circle-1"></div>
+        <div class="floating-circle circle-2"></div>
+        <div class="floating-circle circle-3"></div>
+        
+        <div class="form-container">
+            <div class="form-card">
+                <!-- Shimmer effect -->
+                <div class="shimmer-effect"></div>
+                
+                <!-- Header with icon -->
+                <div class="header">
+                    <div class="icon-wrapper">
+                        <svg class="heart-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
+                        </svg>
+                    </div>
+                    <h2>Join MentalEase</h2>
+                    <p class="subtitle">Start your journey to wellness today</p>
+                </div>
+
+                <!-- Success Message -->
+                <div id="successMessage" class="alert-success" style="display: none;">
+                    <svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                        <polyline points="22 4 12 14.01 9 11.01"/>
+                    </svg>
+                    <span id="successText"></span>
+                </div>
+
+                <!-- Form -->
+                <form id="signupForm" class="signup-form">
+                    <!-- Username Field -->
+                    <div class="form-field">
+                        <label for="username" class="field-label">
+                            <svg class="label-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/>
+                                <circle cx="12" cy="7" r="4"/>
+                            </svg>
+                            Username
+                        </label>
+                        <div class="input-wrapper">
+                            <input 
+                                type="text" 
+                                id="username" 
+                                name="username" 
+                                placeholder="Choose a unique username" 
+                                required
+                                class="form-input"
+                            >
+                            <svg class="check-mark" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                <polyline points="22 4 12 14.01 9 11.01"/>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- Full Name Field -->
+                    <div class="form-field">
+                        <label for="fullName" class="field-label">
+                            <svg class="label-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/>
+                                <path d="M5 3v4"/>
+                                <path d="M19 17v4"/>
+                                <path d="M3 5h4"/>
+                                <path d="M17 19h4"/>
+                            </svg>
+                            Full Name
+                        </label>
+                        <div class="input-wrapper">
+                            <input 
+                                type="text" 
+                                id="fullName" 
+                                name="fullName" 
+                                placeholder="Enter your full name" 
+                                required
+                                class="form-input"
+                            >
+                            <svg class="check-mark" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                <polyline points="22 4 12 14.01 9 11.01"/>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- Email Field -->
+                    <div class="form-field">
+                        <label for="email" class="field-label">
+                            <svg class="label-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect width="20" height="16" x="2" y="4" rx="2"/>
+                                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+                            </svg>
+                            Email
+                        </label>
+                        <div class="input-wrapper">
+                            <input 
+                                type="email" 
+                                id="email" 
+                                name="email" 
+                                placeholder="your.email@example.com" 
+                                required
+                                class="form-input"
+                            >
+                            <svg class="check-mark" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                <polyline points="22 4 12 14.01 9 11.01"/>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- Password Field -->
+                    <div class="form-field">
+                        <label for="password" class="field-label">
+                            <svg class="label-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect width="18" height="11" x="3" y="11" rx="2" ry="2"/>
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                            </svg>
+                            Password
+                        </label>
+                        <div class="input-wrapper">
+                            <input 
+                                type="password" 
+                                id="password" 
+                                name="password" 
+                                placeholder="Create a strong password" 
+                                required
+                                class="form-input"
+                            >
+                        </div>
+                        <div id="passwordStrength" class="password-strength" style="display: none;">
+                            <div class="strength-bar-container">
+                                <div id="strengthBar" class="strength-bar"></div>
+                            </div>
+                            <span id="strengthText" class="strength-text"></span>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="submit-button">
+                        Create Account
+                    </button>
+                </form>
+
+                <!-- Login Link -->
+                <p class="login-link">
+                    Already have an account? 
+                    <a href="#" class="link">Login here</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Form Elements
+        const form = document.getElementById('signupForm');
+        const usernameInput = document.getElementById('username');
+        const fullNameInput = document.getElementById('fullName');
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const successMessage = document.getElementById('successMessage');
+        const successText = document.getElementById('successText');
+        const passwordStrength = document.getElementById('passwordStrength');
+        const strengthBar = document.getElementById('strengthBar');
+        const strengthText = document.getElementById('strengthText');
+
+        // Show/hide checkmarks on input
+        function setupCheckmark(input) {
+            const checkmark = input.parentElement.querySelector('.check-mark');
+            if (!checkmark) return;
+            
+            input.addEventListener('input', () => {
+                if (input.value.trim() !== '') {
+                    checkmark.style.display = 'block';
+                    setTimeout(() => {
+                        checkmark.classList.add('show');
+                    }, 10);
+                } else {
+                    checkmark.classList.remove('show');
+                    setTimeout(() => {
+                        checkmark.style.display = 'none';
+                    }, 300);
+                }
+            });
+        }
+
+        // Setup checkmarks for all inputs except password
+        setupCheckmark(usernameInput);
+        setupCheckmark(fullNameInput);
+        setupCheckmark(emailInput);
+
+        // Password Strength Calculation
+        function calculatePasswordStrength(password) {
+            let strength = 0;
+            
+            if (password.length >= 8) strength += 25;
+            if (password.length >= 12) strength += 15;
+            if (/[a-z]/.test(password)) strength += 15;
+            if (/[A-Z]/.test(password)) strength += 15;
+            if (/[0-9]/.test(password)) strength += 15;
+            if (/[^a-zA-Z0-9]/.test(password)) strength += 15;
+            
+            return Math.min(strength, 100);
+        }
+
+        function getPasswordStrengthColor(strength) {
+            if (strength < 40) return '#ef4444'; // red
+            if (strength < 70) return '#eab308'; // yellow
+            return '#22c55e'; // green
+        }
+
+        function getPasswordStrengthText(strength) {
+            if (strength === 0) return '';
+            if (strength < 40) return 'Weak';
+            if (strength < 70) return 'Good';
+            return 'Strong';
+        }
+
+        // Password input handler
+        passwordInput.addEventListener('input', (e) => {
+            const password = e.target.value;
+            
+            if (password.length > 0) {
+                // Show password strength indicator
+                passwordStrength.style.display = 'block';
+                
+                // Calculate strength
+                const strength = calculatePasswordStrength(password);
+                const color = getPasswordStrengthColor(strength);
+                const text = getPasswordStrengthText(strength);
+                
+                // Update strength bar
+                strengthBar.style.setProperty('--strength-width', `${strength}%`);
+                strengthBar.style.setProperty('--strength-color', color);
+                
+                // Update strength text
+                strengthText.textContent = text;
+            } else {
+                // Hide password strength indicator
+                passwordStrength.style.display = 'none';
+            }
+        });
+
+        // Form submission
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = {
+                username: usernameInput.value,
+                fullName: fullNameInput.value,
+                email: emailInput.value,
+                password: passwordInput.value
+            };
+            
+            // Show success message
+            successText.textContent = `Welcome to MentalEase, ${formData.fullName}! Your journey to wellness starts here.`;
+            successMessage.style.display = 'flex';
+            
+            // Scroll to top to show message
+            successMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            
+            // Optional: Log form data (in a real app, this would be sent to a server)
+            console.log('Form submitted:', formData);
+        });
+
+        // Add smooth transitions to form fields on page load
+        window.addEventListener('load', () => {
+            const formFields = document.querySelectorAll('.form-field');
+            formFields.forEach((field, index) => {
+                field.style.opacity = '0';
+                field.style.transform = 'translateX(-20px)';
+                
+                setTimeout(() => {
+                    field.style.transition = 'all 0.6s ease-out';
+                    field.style.opacity = '1';
+                    field.style.transform = 'translateX(0)';
+                }, 300 + (index * 100));
+            });
+        });
+
+        // Add input focus animations
+        const inputs = document.querySelectorAll('.form-input');
+        inputs.forEach(input => {
+            input.addEventListener('focus', (e) => {
+                e.target.parentElement.style.transform = 'scale(1.02)';
+            });
+            
+            input.addEventListener('blur', (e) => {
+                e.target.parentElement.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>
