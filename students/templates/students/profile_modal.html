@@ -1,0 +1,35 @@
+<div class="profile-dropdown-container">
+    <div id="profilePic" class="profile-pic">
+        SU
+    </div>
+    
+    <div id="profileDropdown" class="dropdown-menu">
+        <div class="dropdown-item" id="openModalBtn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 13.5V4a2 2 0 0 1 2-2h8.5L20 7.5V20a2 2 0 0 1-2 2h-5.5"/><polyline points="14 2 14 8 20 8"/><path d="M10 19l-2 2-2-2"/><path d="M8 12v7"/></svg>
+            Change Email
+        </div>
+        <a href="{% url 'logout' %}" class="dropdown-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
+            Logout
+        </a>
+    </div>
+</div>
+
+<div id="emailModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Update Email Address</h3>
+            <button class="close-button" id="closeModalBtn">&times;</button>
+        </div>
+        <form id="emailChangeForm">
+            <p style="margin-bottom: 1rem; color: #717182; font-size: 0.875rem;">
+                Enter your new email. A confirmation link will be sent.
+            </p>
+            <input type="email" id="newEmailInput" placeholder="new.email@example.com" required class="form-input">
+            <button type="submit" class="save-button" id="saveEmailBtn">
+                Save New Email
+            </button>
+            <div id="saveMessage" class="save-message"></div>
+        </form>
+    </div>
+</div>

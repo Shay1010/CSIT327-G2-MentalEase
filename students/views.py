@@ -79,3 +79,14 @@ def student_dashboard(request):
     if not student:
         return redirect('login')
     return render(request, 'students/dashboard.html', {'student': student})
+
+#Student Profile
+def student_profile(request):
+    """
+    Renders the student profile page (which the dashboard template links to).
+    """
+    # Assuming the profile_modal.html file is also located in 'students/templates/students/'
+    # You might pass student data here later, but for now, just render the template.
+    
+    # You mentioned the target file was profile_modal.html, so use that:
+    return render(request, 'students/profile_modal.html', {})

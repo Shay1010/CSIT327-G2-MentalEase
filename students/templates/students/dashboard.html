@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MentalEase - Student Dashboard</title>
     <style>
-        /* Reset and Base Styles */
         * {
             margin: 0;
             padding: 0;
@@ -19,18 +18,19 @@
             color: #1a1a1a;
         }
 
-        /* Page Container */
         .page-container {
             min-height: 100vh;
+            /* Pushes content down to clear the fixed navbar */
+            padding-top: 5rem; 
+            /* Centers the dashboard card */
             display: flex;
-            align-items: center;
+            align-items: flex-start; /* Aligns content from the top (below navbar) */
             justify-content: center;
             padding: 1rem;
             position: relative;
             overflow: hidden;
         }
 
-        /* Gradient Background */
         .gradient-background {
             position: absolute;
             inset: 0;
@@ -38,325 +38,318 @@
             z-index: 0;
         }
 
-        /* Animated Gradient Orbs */
-        .orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            z-index: 1;
+        .orb { position: absolute; border-radius: 50%; filter: blur(80px); z-index: 0; }
+        .orb-1 { top: 0; left: 0; width: 24rem; height: 24rem; background: linear-gradient(135deg, rgba(191, 219, 254, 0.4), rgba(221, 214, 254, 0.4)); animation: pulse1 8s ease-in-out infinite; }
+        .orb-2 { bottom: 0; right: 0; width: 24rem; height: 24rem; background: linear-gradient(135deg, rgba(153, 246, 228, 0.4), rgba(191, 219, 254, 0.4)); animation: pulse2 10s ease-in-out infinite 1s; }
+        .orb-3 { top: 50%; left: 50%; transform: translate(-50%, -50%); width: 24rem; height: 24rem; background: linear-gradient(135deg, rgba(221, 214, 254, 0.3), rgba(251, 207, 232, 0.3)); animation: pulse3 12s ease-in-out infinite 2s; }
+        @keyframes pulse1 { 0%, 100% { transform: scale(1); opacity: 0.4; } 50% { transform: scale(1.2); opacity: 0.6; } }
+        @keyframes pulse2 { 0%, 100% { transform: scale(1); opacity: 0.4; } 50% { transform: scale(1.3); opacity: 0.5; } }
+        @keyframes pulse3 { 0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.3; } 50% { transform: translate(-50%, -50%) scale(1.1); opacity: 0.5; } }
+        
+        .floating-circle { position: absolute; border: 2px solid; border-radius: 50%; z-index: 0; }
+        .circle-1 { top: 7rem; left: 2.5rem; width: 6rem; height: 6rem; border-color: rgba(147, 197, 253, 0.3); animation: float1 15s ease-in-out infinite; }
+        .circle-2 { bottom: 5rem; left: 5rem; width: 4rem; height: 4rem; border-color: rgba(196, 181, 253, 0.3); animation: float2 12s ease-in-out infinite; }
+        .circle-3 { top: 25%; right: 5rem; width: 5rem; height: 5rem; border-color: rgba(153, 246, 228, 0.3); animation: float3 10s ease-in-out infinite; }
+        @keyframes float1 { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-20px) rotate(180deg); } }
+        @keyframes float2 { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(15px) rotate(-180deg); } }
+        @keyframes float3 { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(10px, -10px); } }
+        
+        /* Dashboard Container and Card (Your Original Code) */
+        .form-container { width: 100%; max-width: 40rem; position: relative; z-index: 10; animation: fadeInUp 0.6s ease-out; margin-top: 3rem; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .form-card {
+            background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(20px); border-radius: 1rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.6); padding: 2rem; position: relative; overflow: hidden;
         }
+        
+        .shimmer-effect { position: absolute; inset: 0; background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent); transform: translateX(-100%); pointer-events: none; }
+        .form-card:hover .shimmer-effect { animation: shimmer 0.8s ease-out; }
+        @keyframes shimmer { to { transform: translateX(100%); } }
+        
+        .header { text-align: center; margin-bottom: 2rem; animation: fadeIn 0.6s ease-out 0.2s backwards; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .header-icon { color: #60a5fa; margin: 0 auto 1rem; display: block; transition: transform 0.3s ease; }
+        .header-icon:hover { transform: scale(1.1) rotate(5deg); }
+        h1 { font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem; color: #1a1a1a; }
+        .student-name { color: #9333ea; }
+        .subtitle { color: #717182; font-size: 1rem; }
+        
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
+        .card { padding: 1.5rem; border-radius: 0.75rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); transition: transform 0.3s ease, box-shadow 0.3s ease; animation: fadeIn 0.6s ease-out backwards; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); }
+        .hotline-card { background-color: #f0f9ff; border: 1px solid #bae6fd; animation-delay: 0.4s; }
+        .article-card { background-color: #f0fdfa; border: 1px solid #99f6e4; animation-delay: 0.6s; }
+        .card-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; }
+        .card-header h2 { font-size: 1.25rem; font-weight: 600; color: #1a1a1a; }
+        .section-icon { color: #a855f7; }
+        .hotline-card .section-icon { color: #3b82f6; }
+        .article-card .section-icon { color: #14b8a6; }
+        .resource-list { list-style: none; padding-left: 0; display: flex; flex-direction: column; gap: 0.75rem; }
+        .hotline-number { font-weight: 600; color: #1d4ed8; }
+        .resource-link { color: #9333ea; text-decoration: none; font-weight: 500; transition: color 0.2s ease, text-decoration 0.2s ease; display: block; }
+        .resource-link:hover { color: #7e22ce; text-decoration: underline; }
+        
+        .logout-button { display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 1rem; padding: 0.75rem 1.5rem; background: linear-gradient(90deg, #ec4899, #f472b6); color: white; border: none; border-radius: 0.5rem; font-weight: 600; font-size: 1rem; cursor: pointer; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); transition: all 0.3s ease; text-decoration: none; animation: fadeInUp 0.6s ease-out 0.8s backwards; }
+        .logout-button:hover { background: linear-gradient(90deg, #db2777, #e879f9); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15); transform: scale(1.02); }
+        .logout-button:active { transform: scale(0.98); }
 
-        .orb-1 {
+        .navbar {
+            position: fixed; /* Fixes it to the top */
             top: 0;
             left: 0;
-            width: 24rem;
-            height: 24rem;
-            background: linear-gradient(135deg, rgba(191, 219, 254, 0.4), rgba(221, 214, 254, 0.4));
-            animation: pulse1 8s ease-in-out infinite;
-        }
-
-        .orb-2 {
-            bottom: 0;
-            right: 0;
-            width: 24rem;
-            height: 24rem;
-            background: linear-gradient(135deg, rgba(153, 246, 228, 0.4), rgba(191, 219, 254, 0.4));
-            animation: pulse2 10s ease-in-out infinite 1s;
-        }
-
-        .orb-3 {
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 24rem;
-            height: 24rem;
-            background: linear-gradient(135deg, rgba(221, 214, 254, 0.3), rgba(251, 207, 232, 0.3));
-            animation: pulse3 12s ease-in-out infinite 2s;
-        }
-
-        @keyframes pulse1 {
-            0%, 100% { transform: scale(1); opacity: 0.4; }
-            50% { transform: scale(1.2); opacity: 0.6; }
-        }
-
-        @keyframes pulse2 {
-            0%, 100% { transform: scale(1); opacity: 0.4; }
-            50% { transform: scale(1.3); opacity: 0.5; }
-        }
-
-        @keyframes pulse3 {
-            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.3; }
-            50% { transform: translate(-50%, -50%) scale(1.1); opacity: 0.5; }
-        }
-
-        /* Floating Decorative Circles */
-        .floating-circle {
-            position: absolute;
-            border: 2px solid;
-            border-radius: 50%;
-            z-index: 1;
-        }
-
-        .circle-1 {
-            top: 2.5rem;
-            left: 2.5rem;
-            width: 6rem;
-            height: 6rem;
-            border-color: rgba(147, 197, 253, 0.3);
-            animation: float1 15s ease-in-out infinite;
-        }
-
-        .circle-2 {
-            bottom: 5rem;
-            left: 5rem;
-            width: 4rem;
-            height: 4rem;
-            border-color: rgba(196, 181, 253, 0.3);
-            animation: float2 12s ease-in-out infinite;
-        }
-
-        .circle-3 {
-            top: 25%;
-            right: 5rem;
-            width: 5rem;
-            height: 5rem;
-            border-color: rgba(153, 246, 228, 0.3);
-            animation: float3 10s ease-in-out infinite;
-        }
-
-        @keyframes float1 {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(180deg); }
-        }
-
-        @keyframes float2 {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(15px) rotate(-180deg); }
-        }
-
-        @keyframes float3 {
-            0%, 100% { transform: translate(0, 0); }
-            50% { transform: translate(10px, -10px); }
-        }
-
-        /* Dashboard Container inherits form-container styling for centering and animation */
-        .form-container { 
             width: 100%;
-            max-width: 40rem; /* Increased max-width for a dashboard layout */
-            position: relative;
-            z-index: 10;
-            animation: fadeInUp 0.6s ease-out;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            z-index: 50; /* Ensures it stays on top */
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Dashboard Card inherits form-card styling for glassmorphism look */
-        .form-card {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(20px);
-            border-radius: 1rem;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            padding: 2rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* Shimmer Effect */
-        .shimmer-effect {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transform: translateX(-100%);
-            pointer-events: none;
-        }
-
-        .form-card:hover .shimmer-effect {
-            animation: shimmer 0.8s ease-out;
-        }
-
-        @keyframes shimmer {
-            to { transform: translateX(100%); }
-        }
-
-        /* Header */
-        .header {
-            text-align: center;
-            margin-bottom: 2rem;
-            animation: fadeIn 0.6s ease-out 0.2s backwards;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .header-icon {
-            color: #60a5fa; /* A nice blue color for the dashboard icon */
-            margin: 0 auto 1rem;
-            display: block;
-            transition: transform 0.3s ease;
-        }
-        .header-icon:hover {
-             transform: scale(1.1) rotate(5deg);
-        }
-
-        h1 {
-            font-size: 2rem;
+        .navbar-logo {
+            font-size: 1.5rem;
             font-weight: 700;
-            margin-bottom: 0.5rem;
-            color: #1a1a1a;
-        }
-        
-        .student-name {
             color: #9333ea;
-        }
-
-        .subtitle {
-            color: #717182;
-            font-size: 1rem;
-        }
-        
-        /* Dashboard Grid Layout */
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-        
-        .card {
-            padding: 1.5rem;
-            border-radius: 0.75rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            animation: fadeIn 0.6s ease-out backwards;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-        }
-        
-        .hotline-card {
-            background-color: #f0f9ff; /* Light blue */
-            border: 1px solid #bae6fd;
-            animation-delay: 0.4s;
-        }
-        
-        .article-card {
-            background-color: #f0fdfa; /* Light cyan */
-            border: 1px solid #99f6e4;
-            animation-delay: 0.6s;
-        }
-
-        .card-header {
+            text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 0.75rem;
-            margin-bottom: 1rem;
+        }
+
+        .profile-dropdown-container {
+            position: relative;
+        }
+
+        .profile-pic {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #60a5fa;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: 2px solid #9333ea;
+            transition: all 0.2s ease;
         }
         
-        .card-header h2 {
+        .profile-pic:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 0 4px rgba(147, 197, 253, 0.5);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            margin-top: 10px;
+            width: 200px;
+            background: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e5e7eb;
+            padding: 0.5rem 0;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+        }
+
+        .dropdown-menu.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            color: #4b5563;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            font-size: 0.875rem;
+        }
+
+        .dropdown-item:hover {
+            background-color: #f3f4f6;
+            color: #9333ea;
+        }
+        
+        .dropdown-item svg {
+            margin-right: 0.75rem;
+        }
+        
+        /*
+        *************************************************
+        * MODAL STYLES (for Email Change)
+        *************************************************
+        */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none; /* Hidden by default */
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            transform: scale(0.9);
+            opacity: 0;
+            transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+        }
+
+        .modal.show .modal-content {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid #f3f4f6;
+            padding-bottom: 1rem;
+        }
+
+        .modal-header h3 {
             font-size: 1.25rem;
             font-weight: 600;
             color: #1a1a1a;
         }
-        
-        .section-icon {
-            color: #a855f7;
+
+        .close-button {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #9ca3af;
+            transition: color 0.2s;
         }
 
-        .hotline-card .section-icon { color: #3b82f6; } /* Blue for hotlines */
-        .article-card .section-icon { color: #14b8a6; } /* Teal for articles */
-        
-        .resource-list {
-            list-style: none;
-            padding-left: 0;
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
+        .close-button:hover {
+            color: #4b5563;
         }
         
-        .hotline-number {
-            font-weight: 600;
-            color: #1d4ed8;
-        }
-        
-        .resource-link {
-            color: #9333ea;
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.2s ease, text-decoration 0.2s ease;
-            display: block;
-        }
-        
-        .resource-link:hover {
-            color: #7e22ce;
-            text-decoration: underline;
+        /* Input/Button styles from original form, adapted for modal */
+        .form-input {
+            width: 100%;
+            padding: 0.625rem 0.75rem;
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            transition: all 0.3s ease;
+            outline: none;
+            margin-bottom: 1rem;
         }
 
-        /* Logout Button */
-        .logout-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-top: 1rem;
+        .form-input:focus {
+            border-color: #9333ea;
+            box-shadow: 0 0 0 3px rgba(147, 51, 234, 0.1);
+        }
+
+        .save-button {
+            width: 100%;
             padding: 0.75rem 1.5rem;
-            background: linear-gradient(90deg, #ec4899, #f472b6); /* Pink gradient */
+            background-color: #9333ea;
             color: white;
             border: none;
             border-radius: 0.5rem;
             font-weight: 600;
-            font-size: 1rem;
             cursor: pointer;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-            text-decoration: none; /* Make it look like a button, not a link */
-            animation: fadeInUp 0.6s ease-out 0.8s backwards;
+            transition: background-color 0.2s, transform 0.2s;
         }
 
-        .logout-button:hover {
-            background: linear-gradient(90deg, #db2777, #e879f9);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15);
-            transform: scale(1.02);
+        .save-button:hover {
+            background-color: #7e22ce;
+            transform: translateY(-1px);
         }
-
-        .logout-button:active {
-            transform: scale(0.98);
+        
+        .save-message {
+            margin-top: 1rem;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            text-align: center;
+            display: none;
         }
+        .success-message { background-color: #f0fdf4; color: #166534; border: 1px solid #bbf7d0;}
+        .error-message { background-color: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
 
-        /* Responsive Design */
+        /* Responsive Design (adjusted page-container padding for small screens) */
         @media (max-width: 640px) {
             .form-card { padding: 1.5rem; }
             h1 { font-size: 1.5rem; }
             .orb { width: 16rem; height: 16rem; }
             .floating-circle { display: none; }
-            .grid-container {
-                grid-template-columns: 1fr;
-            }
-        }
-        @media (min-width: 641px) and (max-width: 1024px) {
-            .orb { width: 20rem; height: 20rem; }
-            .form-container { max-width: 35rem; }
+            .grid-container { grid-template-columns: 1fr; }
+            .navbar-logo { font-size: 1.2rem; }
+            /* Adjust padding top for small screens to match navbar size */
+            .page-container { padding-top: 4rem; }
         }
     </style>
 </head>
 <body>
+    
+    <nav class="navbar">
+        <a href="#" class="navbar-logo">MentalEase</a>
+        
+        <div class="profile-dropdown-container">
+            <div id="profilePic" class="profile-pic">
+                SU
+            </div>
+            
+            <div id="profileDropdown" class="dropdown-menu">
+                
+                <a href="{% url 'profile_page' %}" class="dropdown-item">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                    My Profile
+                </a>
+                
+                <div class="dropdown-item" id="openModalBtn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 13.5V4a2 2 0 0 1 2-2h8.5L20 7.5V20a2 2 0 0 1-2 2h-5.5"/><polyline points="14 2 14 8 20 8"/><path d="M10 19l-2 2-2-2"/><path d="M8 12v7"/></svg>
+                    Change Email
+                </div>
+                
+                <a href="{% url 'logout' %}" class="dropdown-item">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
+                    Logout
+                </a>
+            </div>
+        </div>
+    </nav>
+    <div class="gradient-background"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <div class="floating-circle circle-1"></div>
+    <div class="floating-circle circle-2"></div>
+    <div class="floating-circle circle-3"></div>
+    
     <div class="page-container">
-        <div class="gradient-background"></div>
-        
-        <div class="orb orb-1"></div>
-        <div class="orb orb-2"></div>
-        <div class="orb orb-3"></div>
-        
-        <div class="floating-circle circle-1"></div>
-        <div class="floating-circle circle-2"></div>
-        <div class="floating-circle circle-3"></div>
-        
         <div class="form-container">
             <div class="form-card">
                 <div class="shimmer-effect"></div>
@@ -369,7 +362,7 @@
                         <path d="M12 18h.01"/>
                     </svg>
                     <h1>Welcome, <span class="student-name">Student User!</span></h1>
-                    <p class="subtitle">Your personalized wellness space.</p>
+                    <p class="subtitle">Your personalized wellness space. Current Email: <strong id="currentEmail">student.user@citu.edu</strong></p>
                 </header>
 
                 <div class="grid-container">
@@ -409,15 +402,30 @@
                     </svg>
                     Logout
                 </a>
-                </div>
+            </div>
         </div>
     </div>
 
+    <div id="emailModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Update Email Address</h3>
+                <button class="close-button" id="closeModalBtn">&times;</button>
+            </div>
+            <form id="emailChangeForm">
+                <p style="margin-bottom: 1rem; color: #717182; font-size: 0.875rem;">
+                    Enter your new email. A confirmation link will be sent.
+                </p>
+                <input type="email" id="newEmailInput" placeholder="new.email@example.com" required class="form-input">
+                <button type="submit" class="save-button" id="saveEmailBtn">
+                    Save New Email
+                </button>
+                <div id="saveMessage" class="save-message"></div>
+            </form>
+        </div>
+    </div>
     <script>
-        // --- Dashboard-specific JavaScript for a minor detail (optional) ---
-        // You could add dynamic name loading or other dashboard logic here.
-        // For now, let's keep the focus on the design copy. 
-        // We'll keep the load animation logic for a nice entrance effect.
+        // --- Dashboard Load Animation (Your Original Code) ---
         window.addEventListener('load', () => {
             const cards = document.querySelectorAll('.card');
             cards.forEach((card, index) => {
@@ -428,9 +436,108 @@
                     card.style.transition = 'all 0.6s ease-out';
                     card.style.opacity = '1';
                     card.style.transform = 'translateY(0)';
-                }, 300 + (index * 200)); // Staggered entry for cards
+                }, 300 + (index * 200));
             });
+            
+            // Re-initialize dynamic components on load
+            initializeProfileAndModalLogic();
         });
+
+        // --- UPDATED: Profile Dropdown and Modal Logic ---
+        function initializeProfileAndModalLogic() {
+            const profilePic = document.getElementById('profilePic');
+            const profileDropdown = document.getElementById('profileDropdown');
+            const emailModal = document.getElementById('emailModal');
+            const openModalBtn = document.getElementById('openModalBtn');
+            const closeModalBtn = document.getElementById('closeModalBtn');
+            const emailChangeForm = document.getElementById('emailChangeForm');
+            const newEmailInput = document.getElementById('newEmailInput');
+            const saveMessage = document.getElementById('saveMessage');
+            const currentEmailDisplay = document.getElementById('currentEmail');
+            const saveEmailBtn = document.getElementById('saveEmailBtn');
+            
+            // 1. Profile Dropdown Toggle (CORRECTED BEHAVIOR)
+            if (profilePic) {
+                profilePic.addEventListener('click', (event) => {
+                    // Prevent the click event from immediately bubbling up and closing the menu
+                    event.stopPropagation(); 
+                    // Toggles the visibility of the dropdown menu
+                    profileDropdown.classList.toggle('show');
+                });
+            }
+
+            // Close the dropdown if the user clicks outside of it
+            window.addEventListener('click', (event) => {
+                if (profileDropdown && profileDropdown.classList.contains('show')) {
+                     // Check if the click target is outside the dropdown container AND the profile picture
+                    if (!event.target.closest('.profile-dropdown-container')) {
+                        profileDropdown.classList.remove('show');
+                    }
+                }
+            });
+
+            // 2. Modal Open/Close
+            if (openModalBtn) {
+                openModalBtn.addEventListener('click', () => {
+                    emailModal.classList.add('show');
+                    profileDropdown.classList.remove('show'); // Hide dropdown when modal opens
+                    newEmailInput.value = '';
+                    saveMessage.style.display = 'none';
+                });
+            }
+
+            if (closeModalBtn) {
+                closeModalBtn.addEventListener('click', () => {
+                    emailModal.classList.remove('show');
+                });
+            }
+
+            if (emailModal) {
+                // Close modal when clicking outside the content area
+                emailModal.addEventListener('click', (e) => {
+                    if (e.target === emailModal) {
+                        emailModal.classList.remove('show');
+                    }
+                });
+            }
+
+            // 3. Supabase Simulation Logic (kept your original form logic)
+            if (emailChangeForm) {
+                emailChangeForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const newEmail = newEmailInput.value;
+                    
+                    saveEmailBtn.disabled = true;
+                    saveEmailBtn.textContent = 'Saving...';
+                    
+                    // SIMULATING SUPABASE AUTH.UPDATE()
+                    try {
+                        // Simulated network delay
+                        await new Promise(resolve => setTimeout(resolve, 1500)); 
+
+                        if (newEmail.includes('@') && newEmail.includes('.')) {
+                            saveMessage.textContent = `Success! Check your new email (${newEmail}) for a confirmation link.`;
+                            saveMessage.className = 'save-message success-message';
+                            currentEmailDisplay.textContent = newEmail; 
+                        } else {
+                            throw new Error("Invalid email format (Simulated Supabase error)");
+                        }
+
+                    } catch (error) {
+                        console.error("Supabase Error Simulation:", error);
+                        saveMessage.textContent = `Error: Update failed. (Simulated)`;
+                        saveMessage.className = 'save-message error-message';
+                    } finally {
+                        saveMessage.style.display = 'block';
+                        saveEmailBtn.disabled = false;
+                        saveEmailBtn.textContent = 'Save New Email';
+                    }
+                });
+            }
+        }
+        
+        // Call the initialization logic to attach event listeners
+        document.addEventListener('DOMContentLoaded', initializeProfileAndModalLogic);
     </script>
 </body>
 </html>
