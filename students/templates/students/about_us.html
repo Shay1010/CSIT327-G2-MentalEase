@@ -1,0 +1,87 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MentalEase - About Us</title>
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <style>
+        /* Optional: Extra styling specific to About Us page */
+        .about-card p {
+            color: #4b5563;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="{% url 'dashboard' %}" class="navbar-logo">MentalEase</a>
+        
+        <div class="navbar-links" style="display: flex; gap: 1rem;">
+            <a href="{% url 'dashboard' %}" style="color: #1a1a1a; font-weight: 500; text-decoration: none;">Dashboard</a>
+            <a href="{% url 'about_us' %}" style="color: #9333ea; font-weight: 500; text-decoration: none;">About Us</a>
+        </div>
+
+        <div class="profile-dropdown-container">
+            <div id="profilePic" class="profile-pic">SU</div>
+            
+            <div id="profileDropdown" class="dropdown-menu">
+                <a href="{% url 'profile_page' %}" class="dropdown-item">My Profile</a>
+                <div class="dropdown-item" id="openModalBtn">Change Email</div>
+                <a href="{% url 'logout' %}" class="dropdown-item">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="gradient-background"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <div class="floating-circle circle-1"></div>
+    <div class="floating-circle circle-2"></div>
+    <div class="floating-circle circle-3"></div>
+
+    <div class="page-container">
+        <div class="form-container">
+            <div class="form-card about-card">
+                <div class="shimmer-effect"></div>
+
+                <header class="header">
+                    <svg class="header-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M9.01 15.11a5 5 0 0 1 5.98 0"/>
+                        <path d="M12 10V6"/>
+                        <path d="M12 18h.01"/>
+                    </svg>
+                    <h1>About Us</h1>
+                    <p class="subtitle">"Helping students take care of their mental health, one day at a time."</p>
+                </header>
+
+                <section>
+                    <p>Welcome to MentalEase! Our mission is to provide students with a safe and supportive environment to track their moods, journal their thoughts, and access mental health resources. We believe that mental wellness is essential for personal growth and academic success.</p>
+
+                    <p>Our team consists of dedicated professionals and volunteers who are passionate about student mental health. We provide curated wellness guides, emergency hotlines, and tools to help students understand and improve their emotional wellbeing.</p>
+
+                    <p>We hope MentalEase can be your companion on your journey to self-care, mindfulness, and emotional resilience.</p>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Reuse existing dropdown and modal scripts from dashboard
+        const profilePic = document.getElementById('profilePic');
+        const profileDropdown = document.getElementById('profileDropdown');
+
+        profilePic.addEventListener('click', () => profileDropdown.classList.toggle('show'));
+        window.addEventListener('click', (e) => {
+            if (!profilePic.contains(e.target) && !profileDropdown.contains(e.target)) {
+                profileDropdown.classList.remove('show');
+            }
+        });
+    </script>
+</body>
+</html>
