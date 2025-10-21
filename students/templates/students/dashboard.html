@@ -75,231 +75,182 @@
         .student-name { color: #9333ea; }
         .subtitle { color: #717182; font-size: 1rem; }
         
-        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
+        .grid-container { 
+            display: grid; 
+            /* Changed to allow more dynamic content cards */
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); 
+            gap: 1.5rem; 
+            margin-bottom: 2rem; 
+        }
         .card { padding: 1.5rem; border-radius: 0.75rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); transition: transform 0.3s ease, box-shadow 0.3s ease; animation: fadeIn 0.6s ease-out backwards; }
         .card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); }
         .hotline-card { background-color: #f0f9ff; border: 1px solid #bae6fd; animation-delay: 0.4s; }
         .article-card { background-color: #f0fdfa; border: 1px solid #99f6e4; animation-delay: 0.6s; }
+
+        /* --- NEW STYLES FOR MOOD/JOURNALING --- */
+        .mood-card { background-color: #fcf4ff; border: 1px solid #e9d5ff; animation-delay: 0.8s; }
+        .journal-card { background-color: #fffbeb; border: 1px solid #fde68a; animation-delay: 1s; }
+
         .card-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; }
         .card-header h2 { font-size: 1.25rem; font-weight: 600; color: #1a1a1a; }
         .section-icon { color: #a855f7; }
         .hotline-card .section-icon { color: #3b82f6; }
         .article-card .section-icon { color: #14b8a6; }
+        .mood-card .section-icon { color: #f472b6; }
+        .journal-card .section-icon { color: #f59e0b; }
+
         .resource-list { list-style: none; padding-left: 0; display: flex; flex-direction: column; gap: 0.75rem; }
         .hotline-number { font-weight: 600; color: #1d4ed8; }
         .resource-link { color: #9333ea; text-decoration: none; font-weight: 500; transition: color 0.2s ease, text-decoration 0.2s ease; display: block; }
         .resource-link:hover { color: #7e22ce; text-decoration: underline; }
+
+        /* Mood Logging UI */
+        .mood-entry-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .mood-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 8px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.2s;
+            text-align: center;
+            font-size: 1.5rem;
+        }
+        .mood-icon:hover {
+            background-color: #f5f3ff;
+            transform: translateY(-2px);
+        }
+        .mood-icon.selected {
+            background-color: #e9d5ff;
+            box-shadow: 0 0 0 2px #a855f7;
+        }
+        .mood-label {
+            font-size: 0.75rem;
+            margin-top: 5px;
+            color: #4b5563;
+        }
         
+        .save-mood-btn {
+            width: 100%;
+            padding: 0.6rem 1rem;
+            background-color: #a855f7;
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .save-mood-btn:hover { background-color: #9333ea; }
+        
+        /* Chart Placeholder */
+        .chart-placeholder {
+            height: 200px;
+            background-color: #fcfcfc;
+            border: 1px dashed #e5e7eb;
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #9ca3af;
+            font-style: italic;
+            margin-top: 1rem;
+        }
+        
+        /* Journaling UI */
+        .journal-textarea {
+            width: 100%;
+            padding: 0.75rem;
+            min-height: 100px;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            resize: vertical;
+            font-family: inherit;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            outline: none;
+        }
+        .journal-textarea:focus {
+            border-color: #f59e0b;
+            box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
+        }
+        .journal-action-btn {
+            padding: 0.5rem 1rem;
+            background-color: #f59e0b;
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .journal-action-btn:hover { background-color: #d97706; }
+
+
+        /* Existing styles... */
         .logout-button { display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 1rem; padding: 0.75rem 1.5rem; background: linear-gradient(90deg, #ec4899, #f472b6); color: white; border: none; border-radius: 0.5rem; font-weight: 600; font-size: 1rem; cursor: pointer; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); transition: all 0.3s ease; text-decoration: none; animation: fadeInUp 0.6s ease-out 0.8s backwards; }
         .logout-button:hover { background: linear-gradient(90deg, #db2777, #e879f9); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15); transform: scale(1.02); }
         .logout-button:active { transform: scale(0.98); }
 
         .navbar {
-            position: fixed; /* Fixes it to the top */
-            top: 0;
-            left: 0;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-            z-index: 50; /* Ensures it stays on top */
-            padding: 0.75rem 1.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            position: fixed; top: 0; left: 0; width: 100%; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); z-index: 50; padding: 0.75rem 1.5rem; display: flex; justify-content: space-between; align-items: center;
         }
 
-        .navbar-logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #9333ea;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-        }
+        .navbar-logo { font-size: 1.5rem; font-weight: 700; color: #9333ea; text-decoration: none; display: flex; align-items: center; }
 
-        .profile-dropdown-container {
-            position: relative;
-        }
+        .profile-dropdown-container { position: relative; }
 
-        .profile-pic {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: #60a5fa;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            border: 2px solid #9333ea;
-            transition: all 0.2s ease;
-        }
+        .profile-pic { width: 40px; height: 40px; border-radius: 50%; background-color: #60a5fa; color: white; display: flex; align-items: center; justify-content: center; font-size: 1rem; font-weight: 600; cursor: pointer; border: 2px solid #9333ea; transition: all 0.2s ease; }
         
-        .profile-pic:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 0 4px rgba(147, 197, 253, 0.5);
-        }
+        .profile-pic:hover { transform: scale(1.05); box-shadow: 0 0 0 4px rgba(147, 197, 253, 0.5); }
 
-        .dropdown-menu {
-            position: absolute;
-            top: 100%;
-            right: 0;
-            margin-top: 10px;
-            width: 200px;
-            background: white;
-            border-radius: 0.5rem;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            border: 1px solid #e5e7eb;
-            padding: 0.5rem 0;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(-10px);
-            transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
-        }
+        .dropdown-menu { position: absolute; top: 100%; right: 0; margin-top: 10px; width: 200px; background: white; border-radius: 0.5rem; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); border: 1px solid #e5e7eb; padding: 0.5rem 0; opacity: 0; visibility: hidden; transform: translateY(-10px); transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s; }
 
-        .dropdown-menu.show {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
+        .dropdown-menu.show { opacity: 1; visibility: visible; transform: translateY(0); }
 
-        .dropdown-item {
-            display: flex;
-            align-items: center;
-            padding: 0.75rem 1rem;
-            color: #4b5563;
-            text-decoration: none;
-            cursor: pointer;
-            transition: background-color 0.2s;
-            font-size: 0.875rem;
-        }
+        .dropdown-item { display: flex; align-items: center; padding: 0.75rem 1rem; color: #4b5563; text-decoration: none; cursor: pointer; transition: background-color 0.2s; font-size: 0.875rem; }
 
-        .dropdown-item:hover {
-            background-color: #f3f4f6;
-            color: #9333ea;
-        }
+        .dropdown-item:hover { background-color: #f3f4f6; color: #9333ea; }
         
-        .dropdown-item svg {
-            margin-right: 0.75rem;
-        }
+        .dropdown-item svg { margin-right: 0.75rem; }
         
-        /*
-        *************************************************
-        * MODAL STYLES (for Email Change)
-        *************************************************
-        */
-        .modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            display: none; /* Hidden by default */
-            align-items: center;
-            justify-content: center;
-            z-index: 100;
-        }
+        /* MODAL STYLES */
+        .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); display: none; align-items: center; justify-content: center; z-index: 100; }
 
-        .modal.show {
-            display: flex;
-        }
+        .modal.show { display: flex; }
 
-        .modal-content {
-            background: white;
-            padding: 2rem;
-            border-radius: 1rem;
-            width: 90%;
-            max-width: 400px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-            transform: scale(0.9);
-            opacity: 0;
-            transition: transform 0.3s ease-out, opacity 0.3s ease-out;
-        }
+        .modal-content { background: white; padding: 2rem; border-radius: 1rem; width: 90%; max-width: 400px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); transform: scale(0.9); opacity: 0; transition: transform 0.3s ease-out, opacity 0.3s ease-out; }
 
-        .modal.show .modal-content {
-            transform: scale(1);
-            opacity: 1;
-        }
+        .modal.show .modal-content { transform: scale(1); opacity: 1; }
 
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-            border-bottom: 1px solid #f3f4f6;
-            padding-bottom: 1rem;
-        }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; border-bottom: 1px solid #f3f4f6; padding-bottom: 1rem; }
 
-        .modal-header h3 {
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: #1a1a1a;
-        }
+        .modal-header h3 { font-size: 1.25rem; font-weight: 600; color: #1a1a1a; }
 
-        .close-button {
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: #9ca3af;
-            transition: color 0.2s;
-        }
+        .close-button { background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #9ca3af; transition: color 0.2s; }
 
-        .close-button:hover {
-            color: #4b5563;
-        }
+        .close-button:hover { color: #4b5563; }
         
-        /* Input/Button styles from original form, adapted for modal */
-        .form-input {
-            width: 100%;
-            padding: 0.625rem 0.75rem;
-            background: white;
-            border: 2px solid #e5e7eb;
-            border-radius: 0.5rem;
-            font-size: 0.875rem;
-            transition: all 0.3s ease;
-            outline: none;
-            margin-bottom: 1rem;
-        }
+        .form-input { width: 100%; padding: 0.625rem 0.75rem; background: white; border: 2px solid #e5e7eb; border-radius: 0.5rem; font-size: 0.875rem; transition: all 0.3s ease; outline: none; margin-bottom: 1rem; }
 
-        .form-input:focus {
-            border-color: #9333ea;
-            box-shadow: 0 0 0 3px rgba(147, 51, 234, 0.1);
-        }
+        .form-input:focus { border-color: #9333ea; box-shadow: 0 0 0 3px rgba(147, 51, 234, 0.1); }
 
-        .save-button {
-            width: 100%;
-            padding: 0.75rem 1.5rem;
-            background-color: #9333ea;
-            color: white;
-            border: none;
-            border-radius: 0.5rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.2s, transform 0.2s;
-        }
+        .save-button { width: 100%; padding: 0.75rem 1.5rem; background-color: #9333ea; color: white; border: none; border-radius: 0.5rem; font-weight: 600; cursor: pointer; transition: background-color 0.2s, transform 0.2s; }
 
-        .save-button:hover {
-            background-color: #7e22ce;
-            transform: translateY(-1px);
-        }
+        .save-button:hover { background-color: #7e22ce; transform: translateY(-1px); }
         
-        .save-message {
-            margin-top: 1rem;
-            padding: 0.75rem;
-            border-radius: 0.5rem;
-            font-size: 0.875rem;
-            text-align: center;
-            display: none;
-        }
+        .save-message { margin-top: 1rem; padding: 0.75rem; border-radius: 0.5rem; font-size: 0.875rem; text-align: center; display: none; }
         .success-message { background-color: #f0fdf4; color: #166534; border: 1px solid #bbf7d0;}
         .error-message { background-color: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
 
-        /* Responsive Design (adjusted page-container padding for small screens) */
+        /* Responsive Design */
         @media (max-width: 640px) {
             .form-card { padding: 1.5rem; }
             h1 { font-size: 1.5rem; }
@@ -307,7 +258,6 @@
             .floating-circle { display: none; }
             .grid-container { grid-template-columns: 1fr; }
             .navbar-logo { font-size: 1.2rem; }
-            /* Adjust padding top for small screens to match navbar size */
             .page-container { padding-top: 4rem; }
         }
     </style>
@@ -350,7 +300,7 @@
     <div class="floating-circle circle-3"></div>
     
     <div class="page-container">
-        <div class="form-container">
+        <div class="form-container" style="max-width: 64rem;"> 
             <div class="form-card">
                 <div class="shimmer-effect"></div>
 
@@ -366,6 +316,71 @@
                 </header>
 
                 <div class="grid-container">
+                    
+                    <section class="card mood-card">
+                        <div class="card-header">
+                            <svg class="section-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M16 16s-1.5-2-4-2-4 2-4 2"/></svg>
+                            <h2>Daily Mood Log</h2>
+                        </div>
+                        <p style="margin-bottom: 0.75rem; font-size: 0.9rem; color: #717182;">How are you feeling today?</p>
+                        
+                        <div class="mood-entry-grid" id="moodEntryGrid">
+                            <div class="mood-icon" data-mood="amazing">
+                                <span>🥳</span>
+                                <span class="mood-label">Amazing</span>
+                            </div>
+                            <div class="mood-icon" data-mood="happy">
+                                <span>😊</span>
+                                <span class="mood-label">Happy</span>
+                            </div>
+                            <div class="mood-icon" data-mood="neutral">
+                                <span>😐</span>
+                                <span class="mood-label">Neutral</span>
+                            </div>
+                            <div class="mood-icon" data-mood="sad">
+                                <span>😔</span>
+                                <span class="mood-label">Sad</span>
+                            </div>
+                            <div class="mood-icon" data-mood="anxious">
+                                <span>😰</span>
+                                <span class="mood-label">Anxious</span>
+                            </div>
+                        </div>
+                        
+                        <button class="save-mood-btn" id="saveMoodBtn">Save Mood Entry</button>
+                        <p id="moodMessage" style="margin-top: 10px; font-size: 0.8rem; text-align: center; color: #7e22ce; display: none;">Mood saved successfully!</p>
+                    </section>
+                    
+                    <section class="card mood-card">
+                        <div class="card-header">
+                            <svg class="section-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18.7 8.3L15 12l-3.7-3.7L7 12l2.6 2.6L7 18h12"/></svg>
+                            <h2>Mood History & Trends</h2>
+                        </div>
+                        <p style="margin-bottom: 0.75rem; font-size: 0.9rem; color: #717182;">Weekly & Monthly Mood Visualization.</p>
+                        
+                        <div class="chart-placeholder">
+                            Mood Chart Placeholder (D3.js / Chart.js)
+                        </div>
+                        <ul class="resource-list" style="margin-top: 1rem;">
+                            <li><a href="#" class="resource-link">View Detailed History</a></li>
+                            <li><a href="#" class="resource-link">Export Data</a></li>
+                        </ul>
+                    </section>
+                    
+                    <section class="card journal-card">
+                        <div class="card-header">
+                            <svg class="section-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 10c.8 0 1.5-.7 1.5-1.5v-5c0-.8-.7-1.5-1.5-1.5H3c-.8 0-1.5.7-1.5 1.5v5c0 .8.7 1.5 1.5 1.5h11.5z"/><path d="M16 8h-4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h4c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2z"/><line x1="16" x2="16" y1="2" y2="4"/><line x1="8" x2="8" y1="2" y2="4"/><line x1="20" x2="20" y1="2" y2="4"/></svg>
+                            <h2>Reflective Journal</h2>
+                        </div>
+                        
+                        <textarea class="journal-textarea" placeholder="What's on your mind today? Write about your feelings, thoughts, and what happened..."></textarea>
+                        
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <button class="journal-action-btn">Save New Entry</button>
+                            <a href="#" class="resource-link" style="color: #4b5563; font-size: 0.9rem;">View All Entries</a>
+                        </div>
+                    </section>
+
                     <section class="card hotline-card">
                         <div class="card-header">
                             <svg class="section-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -424,6 +439,7 @@
             </form>
         </div>
     </div>
+
     <script>
         // --- Dashboard Load Animation (Your Original Code) ---
         window.addEventListener('load', () => {
@@ -441,9 +457,10 @@
             
             // Re-initialize dynamic components on load
             initializeProfileAndModalLogic();
+            initializeMoodLogger(); // Initialize the new mood logging logic
         });
 
-        // --- UPDATED: Profile Dropdown and Modal Logic ---
+        // --- Profile Dropdown and Modal Logic (Your Original Code) ---
         function initializeProfileAndModalLogic() {
             const profilePic = document.getElementById('profilePic');
             const profileDropdown = document.getElementById('profileDropdown');
@@ -456,12 +473,10 @@
             const currentEmailDisplay = document.getElementById('currentEmail');
             const saveEmailBtn = document.getElementById('saveEmailBtn');
             
-            // 1. Profile Dropdown Toggle (CORRECTED BEHAVIOR)
+            // 1. Profile Dropdown Toggle
             if (profilePic) {
                 profilePic.addEventListener('click', (event) => {
-                    // Prevent the click event from immediately bubbling up and closing the menu
                     event.stopPropagation(); 
-                    // Toggles the visibility of the dropdown menu
                     profileDropdown.classList.toggle('show');
                 });
             }
@@ -469,7 +484,6 @@
             // Close the dropdown if the user clicks outside of it
             window.addEventListener('click', (event) => {
                 if (profileDropdown && profileDropdown.classList.contains('show')) {
-                     // Check if the click target is outside the dropdown container AND the profile picture
                     if (!event.target.closest('.profile-dropdown-container')) {
                         profileDropdown.classList.remove('show');
                     }
@@ -480,7 +494,7 @@
             if (openModalBtn) {
                 openModalBtn.addEventListener('click', () => {
                     emailModal.classList.add('show');
-                    profileDropdown.classList.remove('show'); // Hide dropdown when modal opens
+                    profileDropdown.classList.remove('show'); 
                     newEmailInput.value = '';
                     saveMessage.style.display = 'none';
                 });
@@ -501,7 +515,7 @@
                 });
             }
 
-            // 3. Supabase Simulation Logic (kept your original form logic)
+            // 3. Supabase Simulation Logic
             if (emailChangeForm) {
                 emailChangeForm.addEventListener('submit', async (e) => {
                     e.preventDefault();
@@ -510,9 +524,7 @@
                     saveEmailBtn.disabled = true;
                     saveEmailBtn.textContent = 'Saving...';
                     
-                    // SIMULATING SUPABASE AUTH.UPDATE()
                     try {
-                        // Simulated network delay
                         await new Promise(resolve => setTimeout(resolve, 1500)); 
 
                         if (newEmail.includes('@') && newEmail.includes('.')) {
@@ -536,8 +548,66 @@
             }
         }
         
+        // --- NEW: Mood Logging JavaScript Logic ---
+        function initializeMoodLogger() {
+            const moodIcons = document.querySelectorAll('.mood-icon');
+            const saveMoodBtn = document.getElementById('saveMoodBtn');
+            const moodMessage = document.getElementById('moodMessage');
+            let selectedMood = null;
+
+            moodIcons.forEach(icon => {
+                icon.addEventListener('click', () => {
+                    // Deselect any currently selected icon
+                    moodIcons.forEach(i => i.classList.remove('selected'));
+                    
+                    // Select the clicked icon
+                    icon.classList.add('selected');
+                    selectedMood = icon.getAttribute('data-mood');
+                });
+            });
+
+            if (saveMoodBtn) {
+                saveMoodBtn.addEventListener('click', async () => {
+                    if (!selectedMood) {
+                        alert("Please select a mood before saving.");
+                        return;
+                    }
+                    
+                    saveMoodBtn.disabled = true;
+                    saveMoodBtn.textContent = 'Logging...';
+                    moodMessage.style.display = 'none';
+
+                    // TODO: Implement actual Django/AJAX call to save to database here
+                    // This is currently a simulation
+                    try {
+                        await new Promise(resolve => setTimeout(resolve, 1000)); 
+                        
+                        // Simulation of success:
+                        moodMessage.textContent = `Logged mood: ${selectedMood.charAt(0).toUpperCase() + selectedMood.slice(1)}.`;
+                        moodMessage.style.color = '#10b981'; // Green color for success
+                        moodMessage.style.display = 'block';
+
+                        // Clear selection after successful save
+                        moodIcons.forEach(i => i.classList.remove('selected'));
+                        selectedMood = null;
+
+                    } catch (error) {
+                        // Simulation of error:
+                        moodMessage.textContent = 'Error logging mood. Try again.';
+                        moodMessage.style.color = '#ef4444'; // Red color for error
+                        moodMessage.style.display = 'block';
+                        console.error("Mood Log Save Error:", error);
+                    } finally {
+                        saveMoodBtn.disabled = false;
+                        saveMoodBtn.textContent = 'Save Mood Entry';
+                    }
+                });
+            }
+        }
+
         // Call the initialization logic to attach event listeners
         document.addEventListener('DOMContentLoaded', initializeProfileAndModalLogic);
+        document.addEventListener('DOMContentLoaded', initializeMoodLogger);
     </script>
 </body>
 </html>
