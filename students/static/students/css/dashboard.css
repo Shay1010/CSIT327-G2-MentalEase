@@ -50,7 +50,6 @@ body {
 @keyframes float2 { 0%,100%{transform:translateY(0) rotate(0deg);}50%{transform:translateY(15px) rotate(-180deg);} }
 @keyframes float3 { 0%,100%{transform:translate(0,0);}50%{transform:translate(10px,-10px);} }
 
-/* ===================== DASHBOARD FORM CARD ===================== */
 .form-container { width: 100%; max-width: 64rem; position: relative; z-index: 10; animation: fadeInUp 0.6s ease-out; margin-top: 3rem; }
 .form-card {
     background: rgba(255,255,255,0.9); backdrop-filter: blur(20px); border-radius: 1rem;
@@ -65,7 +64,6 @@ body {
 @keyframes fadeInUp { from { opacity:0; transform:translateY(20px);} to { opacity:1; transform:translateY(0);} }
 @keyframes fadeIn { from { opacity:0;} to {opacity:1;} }
 
-/* ===================== HEADER ===================== */
 .header { text-align:center; margin-bottom:2rem; animation:fadeIn 0.6s ease-out 0.2s backwards; }
 .header-icon { color:#60a5fa; margin:0 auto 1rem; display:block; transition: transform 0.3s ease; }
 .header-icon:hover { transform: scale(1.1) rotate(5deg); }
@@ -73,16 +71,13 @@ h1 { font-size:2rem; font-weight:700; margin-bottom:0.5rem; color:#1a1a1a; }
 .student-name { color:#9333ea; }
 .subtitle { color:#717182; font-size:1rem; }
 
-/* ===================== GRID LAYOUT ===================== */
 .grid-container { display:grid; grid-template-columns:repeat(2,1fr); gap:1.5rem; margin-bottom:2rem; }
 .journal-card { grid-column: span 2; order:3; }
 .hotline-card, .article-card { grid-column: span 2; order:10; display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; padding:1rem; }
 
-/* ===================== CARD STYLING ===================== */
 .card { padding:1.5rem; border-radius:0.75rem; box-shadow:0 4px 6px -1px rgba(0,0,0,0.1); transition: transform 0.3s ease, box-shadow 0.3s ease; animation:fadeIn 0.6s ease-out backwards; }
 .card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1),0 4px 6px -2 rgba(0,0,0,0.05); }
 
-/* Color coding */
 .hotline-card { background:#f0f9ff; border:1px solid #bae6fd; animation-delay:0.4s; }
 .article-card { background:#f0fdfa; border:1px solid #99f6e4; animation-delay:0.6s; }
 .mood-card { background:#fcf4ff; border:1px solid #e9d5ff; animation-delay:0.8s; }
@@ -105,7 +100,6 @@ h1 { font-size:2rem; font-weight:700; margin-bottom:0.5rem; color:#1a1a1a; }
 .resource-link { color:#9333ea; text-decoration:none; font-weight:500; transition: color 0.2s, text-decoration 0.2s; display:block; }
 .resource-link:hover { color:#7e22ce; text-decoration:underline; }
 
-/* ===================== MOOD & JOURNAL ===================== */
 .mood-entry-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:10px; margin-bottom:1rem; }
 .mood-icon { display:flex; flex-direction:column; align-items:center; padding:8px; border-radius:8px; cursor:pointer; transition: background-color 0.2s, transform 0.2s; text-align:center; font-size:1.5rem; }
 .mood-icon:hover { background-color:#f5f3ff; transform:translateY(-2px); }
@@ -122,12 +116,10 @@ h1 { font-size:2rem; font-weight:700; margin-bottom:0.5rem; color:#1a1a1a; }
 .journal-action-btn { padding:0.5rem 1rem; background-color:#f59e0b; color:white; border:none; border-radius:0.5rem; font-weight:600; cursor:pointer; transition: background-color 0.2s; }
 .journal-action-btn:hover { background-color:#d97706; }
 
-/* ===================== LOGOUT BUTTON ===================== */
 .logout-button { display:inline-flex; align-items:center; gap:0.5rem; margin-top:1rem; padding:0.75rem 1.5rem; background: linear-gradient(90deg,#ec4899,#f472b6); color:white; border:none; border-radius:0.5rem; font-weight:600; font-size:1rem; cursor:pointer; box-shadow:0 10px 15px -3px rgba(0,0,0,0.1); transition: all 0.3s ease; text-decoration:none; animation: fadeInUp 0.6s ease-out 0.8s backwards; }
 .logout-button:hover { background: linear-gradient(90deg,#db2777,#e879f9); box-shadow:0 20px 25px -5px rgba(0,0,0,0.15); transform: scale(1.02); }
 .logout-button:active { transform: scale(0.98); }
 
-/* ===================== NAVBAR ===================== */
 .navbar { position: fixed; top:0; left:0; width:100%; background:rgba(255,255,255,0.95); backdrop-filter: blur(10px); box-shadow:0 2px 4px rgba(0,0,0,0.05); z-index:50; padding:0.75rem 1.5rem; display:flex; justify-content:space-between; align-items:center; }
 .navbar-logo { font-size:1.5rem; font-weight:700; color:#9333ea; text-decoration:none; display:flex; align-items:center; }
 .profile-dropdown-container { position:relative; }
@@ -139,7 +131,6 @@ h1 { font-size:2rem; font-weight:700; margin-bottom:0.5rem; color:#1a1a1a; }
 .dropdown-item:hover { background-color:#f3f4f6; color:#9333ea; }
 .dropdown-item svg { margin-right:0.75rem; }
 
-/* ===================== MODAL ===================== */
 .modal { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); display:none; align-items:center; justify-content:center; z-index:100; }
 .modal.show { display:flex; }
 .modal-content { background:white; padding:2rem; border-radius:1rem; width:90%; max-width:400px; box-shadow:0 25px 50px -12px rgba(0,0,0,0.25); transform:scale(0.9); opacity:0; transition: transform 0.3s ease-out, opacity 0.3s ease-out; }
